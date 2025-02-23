@@ -10,7 +10,6 @@ import scala.concurrent.ExecutionContextExecutor
 object SimpleStorageService {
   private val storage = mutable.HashMap[String, String]()
 
-  // Маршруты
   private val routes: Route =
     path("put") {
       post {
