@@ -23,6 +23,6 @@ class StorageSimulation extends Simulation {
       .queryParam("key", "testKey"))
 
   setUp(
-    scn.inject(atOnceUsers(100))
+    scn.inject(rampUsersPerSec(10) to 125 during (60.seconds))
   ).protocols(httpProtocol)
 }
