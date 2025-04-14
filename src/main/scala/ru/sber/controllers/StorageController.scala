@@ -10,15 +10,17 @@ object StorageController {
   val routes: Route =
     path("put") {
       post {
-        parameters("key", "value") { (key, value) =>
-          complete(storageService.put(key, value))
+        formFields("key", "value") { (key, value) =>
+          onSuccess(storageService.put(key, value)) { response =>
+            complete(response)
+          }
         }
       }
     } ~
       path("get") {
         get {
           parameters("key") { key =>
-            storageService.get(key) match {
+            onSuccess(storageService.get(key)) {
               case Some(value) => complete(value)
               case None => complete((404, s"Key '$key' not found."))
             }
